@@ -2943,6 +2943,27 @@
         ]
       },
       {
+        "tab": "Builder SDK",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "builder-sdk/overview",
+              "builder-sdk/quickstart"
+            ]
+          },
+          {
+            "group": "Usage",
+            "pages": [
+              "builder-sdk/usage-patterns",
+              "builder-sdk/version",
+              "builder-sdk/teams",
+              "builder-sdk/troubleshooting"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Production",
         "groups": [
           {
