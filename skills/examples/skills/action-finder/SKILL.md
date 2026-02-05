@@ -46,7 +46,7 @@ Use this skill to generate CRUD action names for a given entity by selecting an 
      - CIDED template for "User" → `createUser`, `listUsers`, `getUser`, `editUser`, `deleteUser`
      - CIDRA template for "Request" → `createRequest`, `listRequests`, `getRequest`, `rejectRequest`, `approveRequest`
      - CID template for "Log" → `createLog`, `listLogs`, `getLog`
-4. **REQUIRED - Log Operation**: You MUST log the operation using `get_skill_script('action-finder', 'scripts/log.py', execute=True, args=[entity_name, template_selected, action1, action2, ...])`. Pass the entity name, selected template, and all generated camelCase action names as arguments (e.g., `['User', 'CIDED', 'createUser', 'listUsers', 'getUser', 'editUser', 'deleteUser']`).
+4. **REQUIRED - Log Operation**: You MUST log the operation using `get_skill_script('action-finder', 'log.bat', execute=True, args=[entity_name, template_selected, action1, action2, ...])`. Pass the entity name, selected template, and all generated camelCase action names as arguments (e.g., `['User', 'CIDED', 'createUser', 'listUsers', 'getUser', 'editUser', 'deleteUser']`).
 5. **Return Results**: Format and return the results including:
    - The template_selected (CIDED, CIDRA, or CID)
    - The generated camelCase action names as a markdown unordered list
@@ -69,7 +69,7 @@ Use this skill to generate CRUD action names for a given entity by selecting an 
 - **No find_actions.py script exists**: Do not attempt to call `scripts/find_actions.py` - it does not exist. Generate actions directly.
 - **Template Selection**: Consider the entity's purpose when selecting a template (e.g., "Request" entities likely need CIDRA, "Log" entities need CID)
 - **Action Naming**: Use consistent naming conventions (camelCase) and appropriate verbs for each action type
-- **REQUIRED - Logging**: You MUST log every operation using `get_skill_script('action-finder', 'scripts/log.py', execute=True, args=[entity_name, template_selected, ...actions])`. This is mandatory and must be done before returning results. The log file is stored at `scripts/history.yaml`.
+- **REQUIRED - Logging**: You MUST log every operation using `get_skill_script('action-finder', 'log.bat', execute=True, args=[entity_name, template_selected, ...actions])`. This is mandatory and must be done before returning results. The log file is stored at `scripts/history.yaml`.
 
 ## References
 
@@ -84,7 +84,7 @@ Load the CRUD templates reference to understand available patterns:
 Use the skill script tool to execute the log script with the generated camelCase action names:
 
 ```
-get_skill_script('action-finder', 'scripts/log.py', execute=True, args=[entity_name, template_selected, action1, action2, ...])
+get_skill_script('action-finder', 'log.bat', execute=True, args=[entity_name, template_selected, action1, action2, ...])
 ```
 
 **IMPORTANT**: Pass the actual generated camelCase action names, NOT template action names.
@@ -92,13 +92,13 @@ get_skill_script('action-finder', 'scripts/log.py', execute=True, args=[entity_n
 Correct Example:
 
 ```
-get_skill_script('action-finder', 'scripts/log.py', execute=True, args=['User', 'CIDED', 'createUser', 'listUsers', 'getUser', 'editUser', 'deleteUser'])
+get_skill_script('action-finder', 'log.bat', execute=True, args=['User', 'CIDED', 'createUser', 'listUsers', 'getUser', 'editUser', 'deleteUser'])
 ```
 
 Wrong Example (DO NOT DO THIS):
 
 ```
-get_skill_script('action-finder', 'scripts/log.py', execute=True, args=['User', 'CIDED', 'Create', 'Index', 'Details', 'Edit', 'Delete'])
+get_skill_script('action-finder', 'log.bat', execute=True, args=['User', 'CIDED', 'Create', 'Index', 'Details', 'Edit', 'Delete'])
 ```
 
 The log file is stored at `skills/examples/skills/action-finder/scripts/history.yaml` and contains all operation histories with:

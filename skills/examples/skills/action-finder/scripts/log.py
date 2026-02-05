@@ -12,6 +12,35 @@ except ImportError:
     print("Error: PyYAML is required. Install it with: pip install pyyaml", file=sys.stderr)
     sys.exit(1)
 
+## ⬇️ Startup log - executed immediately when script is loaded
+_STARTUP_TIMESTAMP = datetime.now().isoformat()
+print(f"[STARTUP] log.py script loaded at {_STARTUP_TIMESTAMP}", file=sys.stderr)
+print(f"[STARTUP] Python executable: {sys.executable}", file=sys.stderr)
+print(f"[STARTUP] Script file: {__file__}", file=sys.stderr)
+print(f"[STARTUP] Arguments received: {sys.argv}", file=sys.stderr)
+sys.stderr.flush()
+print(f"[STARTUP] log.py script loaded at {_STARTUP_TIMESTAMP}", file=sys.stdout)
+print(f"[STARTUP] Arguments received: {sys.argv}", file=sys.stdout)
+sys.stdout.flush()
+
+## ⬇️ Write startup log to file immediately
+try:
+    script_dir = Path(__file__).parent.resolve() if '__file__' in globals() else Path.cwd() / 'scripts'
+    startup_log_file = script_dir / 'startup.log'
+    with open(startup_log_file, 'a', encoding='utf-8') as f:
+        f.write(f"\n{'='*60}\n")
+        f.write(f"SCRIPT STARTUP: {_STARTUP_TIMESTAMP}\n")
+        f.write(f"Python executable: {sys.executable}\n")
+        f.write(f"Script file: {__file__}\n")
+        f.write(f"Arguments: {sys.argv}\n")
+        f.write(f"Working directory: {Path.cwd()}\n")
+        f.write(f"{'='*60}\n")
+        f.flush()
+        os.fsync(f.fileno())
+except Exception as e:
+    print(f"[STARTUP ERROR] Failed to write startup log: {e}", file=sys.stderr)
+    sys.stderr.flush()
+
 
 def log_error(error_msg: str, script_dir: Path, exception: Exception = None):
     """Log errors to error.log file."""
@@ -178,10 +207,22 @@ def log_operation(entity_name: str, template_selected: str, actions: list[str]):
 
 def main():
     """Main entry point for the script."""
-    # Force output immediately to verify script is running
-    print("SCRIPT STARTED", file=sys.stderr)
+    ## ⬇️ Enhanced startup logging
+    startup_time = datetime.now().isoformat()
+    print("="*60, file=sys.stderr)
+    print(f"[MAIN] log.py main() function called at {startup_time}", file=sys.stderr)
+    print(f"[MAIN] Script file: {__file__}", file=sys.stderr)
+    print(f"[MAIN] Python executable: {sys.executable}", file=sys.stderr)
+    print(f"[MAIN] Arguments count: {len(sys.argv)}", file=sys.stderr)
+    print(f"[MAIN] Arguments: {sys.argv}", file=sys.stderr)
+    print(f"[MAIN] Working directory: {Path.cwd()}", file=sys.stderr)
+    print("="*60, file=sys.stderr)
     sys.stderr.flush()
-    print("SCRIPT STARTED", file=sys.stdout)
+    
+    print("="*60, file=sys.stdout)
+    print(f"[MAIN] log.py main() function called at {startup_time}", file=sys.stdout)
+    print(f"[MAIN] Arguments: {sys.argv}", file=sys.stdout)
+    print("="*60, file=sys.stdout)
     sys.stdout.flush()
     
     # Write debug info to a debug file as well - use absolute path to ensure it works

@@ -9,3 +9,13 @@ operations:
   - editUser
   - deleteUser
   actions_count: 5
+- datetime: '2026-02-05T21:50:17.741499'
+  entity_name: User
+  template_selected: CIDED
+  actions_found:
+  - createUser
+  - listUsers
+  - getUser
+  - editUser
+  - deleteUser
+  actions_count: 5
