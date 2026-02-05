@@ -18,3 +18,25 @@ agno-docs-style/styles/alex
 agno-docs-style/styles/write-good
 agno-docs-style/styles/Google
 agno-docs-style/styles/Readability
+.env
+
+# SpecStory
+.specstory
+
+# Python
+venv/
+env/
+ENV/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg

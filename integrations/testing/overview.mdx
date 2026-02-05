@@ -16,7 +16,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIResponses
 
 # Configure Scenario defaults (model for user simulator and judge)
-scenario.configure(default_model="openai/gpt-4.1-mini")
+scenario.configure(DEFAULT_MODEL_ID="openai/gpt-4.1-mini")
 
 @pytest.mark.agent_test
 @pytest.mark.asyncio
@@ -68,24 +68,19 @@ async def test_vegetarian_recipe_agent() -> None:
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
-    ```bash
-    export OPENAI_API_KEY=xxx
-    export LANGWATCH_API_KEY=xxx # Optional, required for Simulation monitoring
-    ```
-  </Step>
+<Step title="Set your API key">
+  ```bash export OPENAI_API_KEY=xxx export LANGWATCH_API_KEY=xxx # Optional,
+  required for Simulation monitoring ```
+</Step>
 
-  <Step title="Install dependencies">
-    ```bash
-    uv pip install -U openai agno langwatch-scenario pytest pytest-asyncio
-    # or
-    uv add agno langwatch-scenario openai pytest
-    ```
-  </Step>
+<Step title="Install dependencies">
+  ```bash uv pip install -U openai agno langwatch-scenario pytest pytest-asyncio
+  # or uv add agno langwatch-scenario openai pytest ```
+</Step>
 
   <Step title="Run Agent">
     ```bash
     pytest scenario_testing.py
     ```
   </Step>
-</Steps> 
+</Steps>
